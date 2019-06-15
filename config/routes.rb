@@ -8,4 +8,5 @@ Rails.application.routes.draw do
   #patch '/products/:id', to: 'products#update'
   #delete '/products/:id', to: 'products#destroy'
   resources :products
+  root 'products#index'
 end
