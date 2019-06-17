@@ -16,8 +16,8 @@
       </div>
     <% end %>
     <% if signed_in? %>
-      <div>Hola <%= current_user.name %></div>
-    <% end %>
+  <div>Hola <%= current_user.name %> <%= link_to "Salir", logout_path, method: :delete %></div>
+<% end %>
     <%= yield %>
   </body>
 </html>
