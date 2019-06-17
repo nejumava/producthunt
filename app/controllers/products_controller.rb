@@ -1,4 +1,7 @@
 class ProductsController < ApplicationController
+
+    before_action :private_access, except: [:index, :show]
+
     def index
         @products = Product.all
     end
@@ -40,29 +43,8 @@ class ProductsController < ApplicationController
         redirect_to products_path, notice: "El producto fue eliminado con éxito"
     end
 
-    def sign_in(user)
-        cookies.permanent.signed[:user_id] = user.id
-        @current_user = user
-    end
-
-    def sign_out
-        cookies.delete(:user_id)
-        @current_user = nil
-    end
-
     private
         def product_params
             params.require(:product).permit(:name, :url, :description)
         end
-
-        def signed_in?
-            !current_user.nil?
-        end
-        helper_method :signed_in?
-        
-        def current_user
-            @current_user ||= User.find(cookies.signed[:user_id]) if cookies.signed[:user_id]
-            rescue ActiveRecord::RecordNotFound
-        end
-        helper_method :current_user
 end
